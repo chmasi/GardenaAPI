@@ -8,50 +8,50 @@ What needs to be done:
 
 For the first start:
 
-using Gardena.NET.Models;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 
-readonly GardenaAPI gardenaApi = new GardenaAPI();
-Locations GardenaLocation = new Locations();
-Devices GardenaDevices = new Devices();
 
-private async void GardenaApi_LoginSuccessful(object sender)
-{
-  gardenaApi.LoginSuccessful += GardenaApi_LoginSuccessful;
-  gardenaApi.LoginFailed += GardenaApi_LoginFailed;
-  gardenaApi.GardenaLoginAsync(Properties.Settings.Default.GardenaUser, Properties.Settings.Default.GardenaUserPassword);
-}
+	using Gardena.NET.Models;
+	using Newtonsoft.Json.Linq;
+	using Newtonsoft.Json;
 
-private void GardenaApi_LoginFailed(object sender)
-{
-  throw new NotImplementedException();
-}
+	readonly GardenaAPI gardenaApi = new GardenaAPI();
+	Locations GardenaLocation = new Locations();
+	Devices GardenaDevices = new Devices();
 
-private async void GardenaApi_LoginSuccessful(object sender)
-{
-  var MowerLog = new List<MowerLog>();
-  GardenaLocation = await gardenaApi.GetGardenaLocationAsync(((GardenaAPI)sender).MyLogin.sessions.user_id,         ((GardenaAPI)sender).MyLogin.sessions.token);
-  GardenaDevices = await gardenaApi.GetGardenaDevicesAsync(myGardenaLocation.locations[0].id, ((GardenaAPI)sender).MyLogin.sessions.token);
+	private async void GardenaApi_LoginSuccessful(object sender)
+	{
+			gardenaApi.LoginSuccessful += GardenaApi_LoginSuccessful;
+			gardenaApi.LoginFailed += GardenaApi_LoginFailed;
+			gardenaApi.GardenaLoginAsync(Properties.Settings.Default.GardenaUser, Properties.Settings.Default.GardenaUserPassword);
+	}
 
-  foreach (var item in myGardenaDevices.devices[1].status_report_history)
-  {
-     MowerLog.Add(JsonConvert.DeserializeObject<MowerLog>(item.ToString()));
-  }
+	private void GardenaApi_LoginFailed(object sender)
+	{
+			throw new NotImplementedException();
+	}
 
-  Session.Add(name: "MowerLog", value: MowerLog);
+	private async void GardenaApi_LoginSuccessful(object sender)
+	{
+			var MowerLog = new List<MowerLog>();
+			GardenaLocation = await gardenaApi.GetGardenaLocationAsync(((GardenaAPI)sender).MyLogin.sessions.user_id,    ((GardenaAPI)sender).MyLogin.sessions.token);
+			GardenaDevices = await gardenaApi.GetGardenaDevicesAsync(myGardenaLocation.locations[0].id, ((GardenaAPI)sender).MyLogin.sessions.token);
 
-  foreach (var item in myGardenaDevices.devices)
-  {
-                if (item.category.ToLower() == "gateway")
-                {
+		foreach (var item in myGardenaDevices.devices[1].status_report_history)
+		{
+			 MowerLog.Add(JsonConvert.DeserializeObject<MowerLog>(item.ToString()));
+		}
 
-                }
-                if (item.category.ToLower() == "mower")
-                {
-                    mowerStatus.Clear();
-                    MowerName = item.name;
-                }
+		Session.Add(name: "MowerLog", value: MowerLog);
 
-   }
-}
+		foreach (var item in myGardenaDevices.devices)
+		{
+			if (item.category.ToLower() == "gateway")
+			{
+			}
+			if (item.category.ToLower() == "mower")
+			{
+				mowerStatus.Clear();
+				MowerName = item.name;
+			}
+		}
+	}
