@@ -1,0 +1,1 @@
+﻿"{\"home\":{\"id\":\"%homeid%\",\"modules\":[{\"id\":\"%shutterid%\",\"target_position\":%targetposition%,\"bridge\":\"%bridgeid%\"}]}}"

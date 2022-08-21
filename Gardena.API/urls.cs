@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Gardena.NET
+﻿namespace Gardena.Net
 {
-    public static class urls
+    public static class Urls
     {
-        public static string GetSessionsUrl => $"{UrlBase}{UrlGetSessions}";
-        public static string GetLocationsUrl => $"{UrlBase}{UrlGetLocations}";
-        public static string GetDevicesUrl => $"{UrlBase}{UrlGetDevices}";
-        public static string SendCommandUrl => $"{UrlBase}{UrlSendCommand}";
+        public static string RequestAuthorizationUrl => $"{UrlBase}{UrlAuthorization}";
+        public static string RequestTokenUrl => $"{UrlBase}{UrlRequestTokenPath}";
+        public static string GetLocationsDataUrl => $"{GardenaBase}{UrlGetLocationsData}";
+        public static string GetCommandUrl => $"{GardenaBase}{UrlPutCommand}";
+        public static string GetPublicDataUrl => $"{GardenaBase}{UrlGetPublicData}";
 
-
-        public static string UrlBase = "https://sg-api.dss.husqvarnagroup.net/sg-1";
-        public static string UrlGetSessions = "/sessions";
-        public static string UrlGetLocations = "/locations/?user_id=";
-        public static string UrlGetDevices = "/devices?locationId=";
-        public static string UrlSendCommand = "/devices/";
+        public static string UrlBase = "https://api.authentication.husqvarnagroup.dev/v1";
+        public static string GardenaBase = "https://api.smart.gardena.dev/v1";
+        public static string UrlAuthorization = "/oauth2/authorize";
+        public static string UrlRequestTokenPath = "/oauth2/token";
+        public static string UrlGetLocationsData = "/locations";
+        public static string UrlPutCommand = "/command";
+        public static string UrlGetPublicData = "/api/getpublicdata";
     }
 }
+
+
